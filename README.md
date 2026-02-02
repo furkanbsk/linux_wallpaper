@@ -3,14 +3,12 @@
 A minimalist, interactive desktop wallpaper that visualizes the progress of the year.
 It uses a native Python script to render directly to your desktop, supporting multi-monitor setups with adaptive layouts.
 
-![Life Calendar](screenshot_examples/horizontal.png)
-
 ## Screenshot Examples
 ### Landscape (Horizontal)
 ![Landscape](screenshot_examples/horizontal.png)
 
 ### Portrait (Vertical)
-![Portrait](screenshot_examples/vertical.png)
+<img src="screenshot_examples/vertical.png" width="400">
 
 ## Features
 - **Native Rendering**: Uses PyQt5 (no browser needed) for high performance and low resource usage.
