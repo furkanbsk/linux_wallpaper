@@ -1,14 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Life Calendar Wallpaper</title>
-    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #000000;
+            --text-color: #ffffff;
+            --highlight-color: #FF4500;
+            /* Red Orange */
+            --circle-empty: #333333;
+            --circle-filled: #ffffff;
+            --circle-current: #FF4500;
+            --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-family);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 90vw;
+            height: 90vh;
+            max-width: 1800px;
+            /* Increased max-width */
+            display: grid;
+            grid-template-columns: 500px 1fr;
+            /* Increased side panel width */
+            grid-template-rows: 1fr auto;
+            gap: 4rem;
+            /* Increased gap */
+            padding: 2rem;
+        }
+
+        /* Header / Clock - Side Panel */
+        .header {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #clock {
+            font-size: 8rem;
+            /* Kept large */
+            font-weight: 600;
+            line-height: 1;
+            white-space: nowrap;
+            /* Prevent wrapping */
+        }
+
+        #date {
+            margin-top: 1rem;
+            font-size: 2rem;
+            color: #888;
+        }
+
+        /* Grid - Main Area */
+        .grid-container {
+            grid-column: 2;
+            grid-row: 1 / span 2;
+            display: grid;
+            /* Adjusted grid to prevent overflow */
+            grid-template-columns: repeat(auto-fit, minmax(24px, 1fr));
+            gap: 10px;
+            width: 100%;
+            align-content: center;
+            justify-content: center;
+        }
+
+        .day-circle {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background-color: var(--circle-empty);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            /* Show interactivity */
+        }
+
+        .day-circle:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+        }
+
+        .day-circle.filled {
+            background-color: var(--circle-filled);
+        }
+
+        .day-circle.current {
+            background-color: var(--circle-current);
+            box-shadow: 0 0 15px var(--circle-current);
+        }
+
+        /* Footer / Stats - Side Panel Bottom */
+        .footer {
+            grid-column: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            border-top: none;
+            padding-top: 0;
+        }
+
+        .stat-box {
+            align-items: flex-start;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            /* Larger label */
+            color: #888;
+        }
+
+        .stat-value {
+            font-size: 3rem;
+            /* Larger value */
+            font-weight: 700;
+            color: var(--highlight-color);
+            /* Ensures Red Orange */
+        }
+
+        /* Specific color enforcement if needed */
+        #days-left {
+            color: #FF4500;
+        }
+
+        /* Mobile / Portrait Fallback */
+        @media (max-aspect-ratio: 1/1) {
+            .container {
+                display: flex;
+                flex-direction: column;
+                max-width: 480px;
+                height: auto;
+            }
+
+            .header {
+                text-align: center;
+                align-items: center;
+            }
+
+            .footer {
+                flex-direction: row;
+                border-top: 1px solid #222;
+                padding-top: 1rem;
+            }
+
+            .grid-container {
+                grid-template-columns: repeat(15, 1fr);
+                margin: 2rem 0;
+            }
+
+            #clock {
+                font-size: 5rem;
+            }
+        }
+    </style>
 </head>
+
 <body>
     <div class="container">
         <header class="header">
@@ -31,6 +198,84 @@
             </div>
         </footer>
     </div>
-    <script src="script.js"></script>
+    <script>
+        function init() {
+            updateClock();
+            renderGrid();
+            setInterval(updateClock, 1000 * 60); // Update clock every minute
+            // Check for day change occasionally to re-render grid if needed
+            setInterval(() => {
+                const now = new Date();
+                if (now.getHours() === 0 && now.getMinutes() === 0) {
+                    renderGrid();
+                }
+            }, 1000 * 60);
+        }
+
+        function updateClock() {
+            const now = new Date();
+            const clockEl = document.getElementById('clock');
+            const dateEl = document.getElementById('date');
+
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+
+            clockEl.textContent = `${hours}:${minutes}`;
+
+            const options = { weekday: 'short', month: 'short', day: 'numeric' };
+            dateEl.textContent = now.toLocaleDateString('en-US', options);
+        }
+
+        function isLeapYear(year) {
+            return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+        }
+
+        function getDayOfYear(date) {
+            const start = new Date(date.getFullYear(), 0, 0);
+            const diff = date - start;
+            const oneDay = 1000 * 60 * 60 * 24;
+            return Math.floor(diff / oneDay);
+        }
+
+        function renderGrid() {
+            const gridEl = document.getElementById('day-grid');
+            const daysLeftEl = document.getElementById('days-left');
+            const percentEl = document.getElementById('percent-complete');
+
+            gridEl.innerHTML = ''; // Clear existing
+
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            const totalDays = isLeapYear(currentYear) ? 366 : 365;
+            const currentDay = getDayOfYear(now);
+
+            // Update Stats
+            const daysLeft = totalDays - currentDay;
+            const percent = ((currentDay / totalDays) * 100).toFixed(1);
+
+            daysLeftEl.textContent = daysLeft;
+            percentEl.textContent = `${percent}%`;
+
+            // Render Circles
+            for (let i = 1; i <= totalDays; i++) {
+                const circle = document.createElement('div');
+                circle.classList.add('day-circle');
+
+                if (i < currentDay) {
+                    circle.classList.add('filled');
+                } else if (i === currentDay) {
+                    circle.classList.add('current');
+                }
+
+                // Optional: add tooltips or interactions
+                circle.title = `Day ${i}`;
+
+                gridEl.appendChild(circle);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
 </body>
+
 </html>

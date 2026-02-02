@@ -29,11 +29,14 @@ body {
 .container {
     width: 90vw;
     height: 90vh;
-    max-width: 1600px;
+    max-width: 1800px;
+    /* Increased max-width */
     display: grid;
-    grid-template-columns: 300px 1fr;
+    grid-template-columns: 500px 1fr;
+    /* Increased side panel width */
     grid-template-rows: 1fr auto;
-    gap: 2rem;
+    gap: 4rem;
+    /* Increased gap */
     padding: 2rem;
 }
 
@@ -47,8 +50,11 @@ body {
 
 #clock {
     font-size: 8rem;
+    /* Kept large */
     font-weight: 600;
     line-height: 1;
+    white-space: nowrap;
+    /* Prevent wrapping */
 }
 
 #date {
@@ -62,11 +68,12 @@ body {
     grid-column: 2;
     grid-row: 1 / span 2;
     display: grid;
-    /* Auto-fit for responsive desktop grid */
-    grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
-    gap: 8px;
+    /* Adjusted grid to prevent overflow */
+    grid-template-columns: repeat(auto-fit, minmax(24px, 1fr));
+    gap: 10px;
     width: 100%;
     align-content: center;
+    justify-content: center;
 }
 
 .day-circle {
@@ -75,6 +82,13 @@ body {
     border-radius: 50%;
     background-color: var(--circle-empty);
     transition: all 0.3s ease;
+    cursor: pointer;
+    /* Show interactivity */
+}
+
+.day-circle:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
 }
 
 .day-circle.filled {
@@ -91,7 +105,7 @@ body {
     grid-column: 1;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 3rem;
     border-top: none;
     padding-top: 0;
 }
@@ -101,11 +115,22 @@ body {
 }
 
 .stat-label {
-    font-size: 1rem;
+    font-size: 1.2rem;
+    /* Larger label */
+    color: #888;
 }
 
 .stat-value {
-    font-size: 2.5rem;
+    font-size: 3rem;
+    /* Larger value */
+    font-weight: 700;
+    color: var(--highlight-color);
+    /* Ensures Red Orange */
+}
+
+/* Specific color enforcement if needed */
+#days-left {
+    color: #FF4500;
 }
 
 /* Mobile / Portrait Fallback */

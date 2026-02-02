@@ -1,0 +1,33 @@
+# Life Calendar Wallpaper
+
+A minimalist, interactive desktop wallpaper that visualizes the progress of the year.
+It uses a native Python script to render directly to your desktop, supporting multi-monitor setups with adaptive layouts.
+
+![Preview](preview.png)
+
+## Features
+- **Native Rendering**: Uses PyQt5 (no browser needed) for high performance and low resource usage.
+- **Multi-Monitor Support**: Automatically detects all connected screens.
+- **Adaptive Layouts**:
+  - **Landscape**: Horizontal dashboard with side-by-side stats and grid.
+  - **Portrait**: Minimalist vertical layout (Clock & Date only).
+- **Aesthetic**: Dark mode with "Inter" font and Red-Orange accents.
+
+## Installation
+
+1.  **Install Dependencies**:
+    ```bash
+    pip install PyQt5
+    ```
+    *(Note: You do not need Hidamari anymore)*
+
+2.  **Run**:
+    ```bash
+    python3 wallpaper_runner.py
+    ```
+
+## Customization
+You can modify `wallpaper_runner.py` to adjust colors, fonts, or layout logic.
+
+## Credits
+Based on the "Life Calendar" concept.
