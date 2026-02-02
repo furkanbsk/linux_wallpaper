@@ -3,7 +3,10 @@
 A minimalist, interactive desktop wallpaper that visualizes the progress of the year.
 It uses a native Python script to render directly to your desktop, supporting multi-monitor setups with adaptive layouts.
 
-![Preview](preview.png)
+![Preview](screenshot_examples/preview.png)
+
+## Screenshot Examples
+![Desktop Preview](screenshot_examples/preview.png)
 
 ## Features
 - **Native Rendering**: Uses PyQt5 (no browser needed) for high performance and low resource usage.
