@@ -31,6 +31,27 @@ It uses a native Python script to render directly to your desktop, supporting mu
     python3 wallpaper_runner.py
     ```
 
+## Autostart on Login
+
+To make it start automatically when you log in, create a desktop entry:
+
+1.  **Create the file**:
+    ```bash
+    mkdir -p ~/.config/autostart
+    nano ~/.config/autostart/life_calendar.desktop
+    ```
+
+2.  **Paste the following** (Update the `Path` and `Exec` to match your actual directory):
+    ```ini
+    [Desktop Entry]
+    Type=Application
+    Name=Life Calendar Wallpaper
+    Exec=/usr/bin/python3 /path/to/your/folder/wallpaper_runner.py
+    Path=/path/to/your/folder
+    X-GNOME-Autostart-enabled=true
+    Terminal=false
+    ```
+
 ## Customization
 You can modify `wallpaper_runner.py` to adjust colors, fonts, or layout logic.
 
