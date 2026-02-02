@@ -1,0 +1,139 @@
+:root {
+    --bg-color: #000000;
+    --text-color: #ffffff;
+    --highlight-color: #FF4500;
+    /* Red Orange */
+    --circle-empty: #333333;
+    --circle-filled: #ffffff;
+    --circle-current: #FF4500;
+    --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    width: 90vw;
+    height: 90vh;
+    max-width: 1600px;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: 1fr auto;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+/* Header / Clock - Side Panel */
+.header {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#clock {
+    font-size: 8rem;
+    font-weight: 600;
+    line-height: 1;
+}
+
+#date {
+    margin-top: 1rem;
+    font-size: 2rem;
+    color: #888;
+}
+
+/* Grid - Main Area */
+.grid-container {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    display: grid;
+    /* Auto-fit for responsive desktop grid */
+    grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
+    gap: 8px;
+    width: 100%;
+    align-content: center;
+}
+
+.day-circle {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: var(--circle-empty);
+    transition: all 0.3s ease;
+}
+
+.day-circle.filled {
+    background-color: var(--circle-filled);
+}
+
+.day-circle.current {
+    background-color: var(--circle-current);
+    box-shadow: 0 0 15px var(--circle-current);
+}
+
+/* Footer / Stats - Side Panel Bottom */
+.footer {
+    grid-column: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    border-top: none;
+    padding-top: 0;
+}
+
+.stat-box {
+    align-items: flex-start;
+}
+
+.stat-label {
+    font-size: 1rem;
+}
+
+.stat-value {
+    font-size: 2.5rem;
+}
+
+/* Mobile / Portrait Fallback */
+@media (max-aspect-ratio: 1/1) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        max-width: 480px;
+        height: auto;
+    }
+
+    .header {
+        text-align: center;
+        align-items: center;
+    }
+
+    .footer {
+        flex-direction: row;
+        border-top: 1px solid #222;
+        padding-top: 1rem;
+    }
+
+    .grid-container {
+        grid-template-columns: repeat(15, 1fr);
+        margin: 2rem 0;
+    }
+
+    #clock {
+        font-size: 5rem;
+    }
+}

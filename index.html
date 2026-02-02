@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life Calendar Wallpaper</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 id="clock">00:00</h1>
+            <div id="date">Loading...</div>
+        </header>
+
+        <main class="grid-container" id="day-grid">
+            <!-- Grid items will be injected by JS -->
+        </main>
+
+        <footer class="footer">
+            <div class="stat-box">
+                <span class="stat-label">Days Left</span>
+                <span class="stat-value" id="days-left">0</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Progress</span>
+                <span class="stat-value" id="percent-complete">0%</span>
+            </div>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
